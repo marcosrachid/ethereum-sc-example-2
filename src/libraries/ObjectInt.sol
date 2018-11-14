@@ -2,27 +2,21 @@ pragma solidity ^0.4.0;
 
 library ObjectInt {
 
-  function toString(bool self) internal pure returns (string memory) {
-    if (self == true) return "true";
-    else return "false";
-  }
-
-  function toString(bool[] self) internal pure returns (string memory) {
-    string memory start = "[";
-    string memory end = "]";
-    string memory middle = "";
-    for (uint i; i < self.length; i++) {
-      if (i != self.length - 1)
-        middle = string(abi.encodePacked(middle, toString(self[i]), ","));
-      else
-        middle = string(abi.encodePacked(middle, toString(self[i])));
+  function parseInt(string value) external pure returns (int) {
+    bytes memory bytesValue = bytes(value);
+    int ret = 0;
+    int j = 1;
+    for(uint i = bytesValue.length-1; i >= 0 && i < bytesValue.length; i--) {
+        assert(bytesValue[i] >= 48 && bytesValue[i] <= 57);
+        ret += (int(bytesValue[i]) - 48)*j;
+        j*=10;
     }
-    return string(abi.encodePacked(start, middle, end));
+    return ret;
   }
 
-  function toString(uint self) internal pure returns (string memory) {
+  function toString(int self) internal pure returns (string memory) {
     if (self == 0) return "0";
-    uint j = self;
+    int j = self;
     uint length;
     while (j != 0){
         length++;
@@ -37,11 +31,30 @@ library ObjectInt {
     return string(bstr);
   }
 
-  function toString(address self) internal pure returns (string memory) {
-    bytes memory b = new bytes(20);
-    for (uint i = 0; i < 20; i++)
-        b[i] = byte(uint8(uint(self) / (2**(8*(19 - i)))));
-    return string(b);
+  function toString(int8[] self) internal pure returns (string memory) {
+    string memory start = "[";
+    string memory middle = "";
+    string memory end = "]";
+    for (uint i; i < self.length; i++) {
+      if (i != self.length - 1)
+        middle = string(abi.encodePacked(middle, toString(self[i]), ","));
+      else
+        middle = string(abi.encodePacked(middle, toString(self[i])));
+    }
+    return string(abi.encodePacked(start, middle, end));
+  }
+
+  function toString(int[] self) internal pure returns (string memory) {
+    string memory start = "[";
+    string memory middle = "";
+    string memory end = "]";
+    for (uint i; i < self.length; i++) {
+      if (i != self.length - 1)
+        middle = string(abi.encodePacked(middle, toString(self[i]), ","));
+      else
+        middle = string(abi.encodePacked(middle, toString(self[i])));
+    }
+    return string(abi.encodePacked(start, middle, end));
   }
 
 }

@@ -9,8 +9,8 @@ library ObjectBool {
 
   function toString(bool[] self) internal pure returns (string memory) {
     string memory start = "[";
-    string memory end = "]";
     string memory middle = "";
+    string memory end = "]";
     for (uint i; i < self.length; i++) {
       if (i != self.length - 1)
         middle = string(abi.encodePacked(middle, toString(self[i]), ","));
