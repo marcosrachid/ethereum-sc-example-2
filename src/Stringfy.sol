@@ -42,9 +42,9 @@ contract Stringfy is Object {
 
   function getBooleans() public view returns
   (
-    string testeBool0,
-    string testeBool1,
-    string testeBool2
+    string memory,
+    string memory,
+    string memory
   ) {
     return (
         _testeBool0.toString(),
@@ -55,12 +55,12 @@ contract Stringfy is Object {
 
   function getUints() public view returns
   (
-    string testeUint0,
-    string testeUint1,
-    string testeUint2,
-    string testeUint3,
-    string testeUint4,
-    string testeUint5
+    string memory,
+    string memory,
+    string memory,
+    string memory,
+    string memory,
+    string memory
   ) {
     return (
         _testeUint0.toString(),
@@ -72,22 +72,18 @@ contract Stringfy is Object {
         );
   }
 
-  function test(uint value) public pure returns (int) {
-    return int(value);
-  }
-
   function parseUints(string number) public pure returns(uint) {
     return ObjectUint.parseUint(number);
   }
 
   function getInts() public view returns
   (
-    string testeInt0,
-    string testeInt1,
-    string testeInt2,
-    string testeInt3,
-    string testeInt4,
-    string testeInt5
+    string memory,
+    string memory,
+    string memory,
+    string memory,
+    string memory,
+    string memory
   ) {
     return (
         _testeInt0.toString(),
