@@ -3,10 +3,17 @@ pragma solidity ^0.4.0;
 library ObjectAddress {
 
   function toString(address self) internal pure returns (string memory) {
-    bytes memory b = new bytes(20);
-    for (uint i = 0; i < 20; i++)
-        b[i] = byte(uint8(uint(self) / (2**(8*(19 - i)))));
-    return string(b);
+    bytes32 value = bytes32(uint256(self));
+    bytes memory alphabet = "0123456789abcdef";
+
+    bytes memory str = new bytes(51);
+    str[0] = '0';
+    str[1] = 'x';
+    for (uint i = 0; i < 20; i++) {
+        str[2+i*2] = alphabet[uint(value[i + 12] >> 4)];
+        str[3+i*2] = alphabet[uint(value[i + 12] & 0x0f)];
+    }
+    return string(str);
   }
 
   function toString(address[] self) internal pure returns (string memory) {

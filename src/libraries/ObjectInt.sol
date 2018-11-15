@@ -18,15 +18,17 @@ library ObjectInt {
     if (self == 0) return "0";
     int j = self;
     uint length;
-    while (j != 0){
+    while (j != 0) {
         length++;
-        j /= 10;
+        j = j >> 4;
     }
+    int mask = 15;
     bytes memory bstr = new bytes(length);
     uint k = length - 1;
     while (self != 0){
-        bstr[k--] = byte(48 + self % 10);
-        self /= 10;
+        int curr = (self & mask);
+        bstr[k--] = curr > 9 ? byte(55 + curr ) : byte(48 + curr); // 55 = 65 - 10
+        self = self >> 4;
     }
     return string(bstr);
   }
